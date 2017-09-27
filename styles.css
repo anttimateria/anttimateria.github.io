@@ -1,4 +1,8 @@
-﻿.linkit {
+﻿body {
+	font-family: 'Merriweather', serif;
+}
+
+.linkit {
 	padding-left: 10px;
 	padding-top: 10px;
 	width: 50 %; 
