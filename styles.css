@@ -1,1 +1,10 @@
-﻿
+﻿.linkit {
+	padding-left: 10px;
+	padding-top: 10px;  
+}
+
+a {
+	text-decoration: none; 
+	color: black; 
+	font-size: 12px; 
+}
