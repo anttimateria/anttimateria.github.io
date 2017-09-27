@@ -3,12 +3,21 @@
 	padding-top: 10px;  
 }
 
-a {
+.a-big {
 	text-decoration: none; 
 	color: black; 
 	font-size: 20px; 
 }
 
-a:hover {
+.a-big:hover {
 	color: red; 
+}
+
+a {
+	text-decoration: none; 
+	color: red;
+}
+
+a:hover {
+	color: blue; 
 }
