@@ -1,16 +1,17 @@
 ﻿.linkit {
 	padding-left: 10px;
-	padding-top: 10px;  
+	padding-top: 10px;
+	width: 50 %; 
 }
 
 .a-big {
 	text-decoration: none; 
-	color: black; 
+	color: red; 
 	font-size: 20px; 
 }
 
 .a-big:hover {
-	color: red; 
+	color: blue; 
 }
 
 a {
