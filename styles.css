@@ -5,13 +5,12 @@
 .linkit {
 	padding-left: 20px;
 	padding-top: 20px;
-	width: 600px; 
+	width: 40em; 
 }
 
 .a-big {
 	text-decoration: none; 
 	color: red; 
-	font-size: 15px; 
 }
 
 .a-big:hover {
