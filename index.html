@@ -25,6 +25,15 @@
     </ul> 
    </div>
    <div class="item"> 
+    <h3><a href="/Hirvionnettomuudet/index.html" class="a-big"> Hirvionnettomuudet postinumeroalueittain kartalla> </a> </h3> 
+    <p> Sama materiaali kuin yllä, yhdistettynä tilastokeskuksen Paavo-postinumerodataan. Alussa haasteina tässä olivat Paavo-rajapinnasta imetyn postinumerodatan suuri koko ja turhien tietokenttien määrä. Sain kuitenkin
+        rajoitettua kenttien lukumäärää tallentamalla koko datan paikallisesti koneelleni geojson-muodossa, jolloin QGIS antoi mahdollisuuden valita mitä kenttiä haluan sisällyttää. Seuraava ongelma oli postinumerodatan liian suuri tarkkuus.
+        Polygoneista koostuvan kartan koko oli alunperin yli 20 Mb. Käyttäen <a href="http://mapshaper.org/">Mapshaper</a> -online-työkalua sain kuitenkin helposti yksinkertaistettua geometriaa. Tuuttasin postinumerot.geojson -tiedoston
+        Mapshaperiin, käytin Simplify-toimintoa ja exporttasin Shapefile-tiedoston, jonka koko oli enää reilu 1 Mb. QGIS lukee näitä geojson- ja shapefile-tiedostoja ja osaa automaattisesti piirtää niistä kartan. Loppu olikin helppoa, sillä
+        QGIS-ohjelman analyysityökaluilla pystyy muutamalla klikkauksella laskemaan polygonien sisään jäävien pisteiden lukumäärän ja luomaan tästä uuden karttatason (eli tässä tapauksessa siis postinumeroalueiden sisään jäävien hirvikolarien määrä).
+    </p>
+   </div>
+   <div class="item"> 
     <h3><a href="/Risteysonnettomuudet/index.html" class="a-big"> Risteysonnettomuudet-kartta> </a> </h3> 
     <p> Sama kuin yllä, tällä kertaa tarkasteltavana pelkästään risteysonnettomuudet. 
     </p> 
