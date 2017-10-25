@@ -1,0 +1,27 @@
+﻿body {
+	font-family: 'Cabin Condensed', sans-serif;
+}
+
+.linkit {
+	padding-left: 20px;
+	padding-top: 20px;
+	width: 40em; 
+}
+
+.a-big {
+	text-decoration: none; 
+	color: red; 
+}
+
+.a-big:hover {
+	color: blue; 
+}
+
+a {
+	text-decoration: none; 
+	color: red;
+}
+
+a:hover {
+	color: blue; 
+}
