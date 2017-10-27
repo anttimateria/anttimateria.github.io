@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet-svg-shape-markers.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Rataverkko0.js"></script>
+        <script src="data/Rautatientasoristeykset1.js"></script>
+        <script src="data/Junaonnettomuudet09162.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:24, minZoom:1
+        }).fitBounds([[59.6487440383,18.6552557438],[66.637185614,37.1829771676]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        var basemap0 = L.tileLayer('http://{s}.www.toolserver.org/tiles/bw-mapnik/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>',
+            maxZoom: 24
+        });
+        basemap0.addTo(map);
+        function setBounds() {
+        }
+        function pop_Rataverkko0(feature, layer) {
+        }
+
+        function style_Rataverkko0_0() {
+            return {
+                pane: 'pane_Rataverkko0',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 2.0,
+                fillOpacity: 0,
+            }
+        }
+        function style_Rataverkko0_1() {
+            return {
+                pane: 'pane_Rataverkko0',
+                opacity: 1,
+                color: 'rgba(23,139,124,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 2.0,
+                fillOpacity: 0,
+            }
+        }
+        map.createPane('pane_Rataverkko0');
+        map.getPane('pane_Rataverkko0').style.zIndex = 400;
+        map.getPane('pane_Rataverkko0').style['mix-blend-mode'] = 'normal';
+    var layer_Rataverkko0 = new L.geoJson.multiStyle(json_Rataverkko0, {
+        attribution: '<a href=""></a>',
+        pane: 'pane_Rataverkko0',
+        onEachFeature: pop_Rataverkko0,
+        styles: [style_Rataverkko0_0,style_Rataverkko0_1,]
+    });
+        bounds_group.addLayer(layer_Rataverkko0);
+        map.addLayer(layer_Rataverkko0);
+        function pop_Rautatientasoristeykset1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Kunta</th>\
+                        <td>' + (feature.properties['KUNTAKOODI'] !== null ? Autolinker.link(String(feature.properties['KUNTAKOODI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Paikka</th>\
+                        <td>' + (feature.properties['NIMI'] !== null ? Autolinker.link(String(feature.properties['NIMI'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Turvavarusteet</th>\
+                        <td>' + (feature.properties['TURVA_VAR'] !== null ? Autolinker.link(String(feature.properties['TURVA_VAR'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function style_Rautatientasoristeykset1_0(feature) {
+            switch(feature.properties['TURVA_VAR'].toString()) {
+                case '2':
+                    return {
+                pane: 'pane_Rautatientasoristeykset1',
+                radius: 2.8,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(39,169,255,1.0)',
+            }
+                    break;
+                case '3':
+                    return {
+                pane: 'pane_Rautatientasoristeykset1',
+                radius: 2.8,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(123,203,217,1.0)',
+            }
+                    break;
+                case '4':
+                    return {
+                pane: 'pane_Rautatientasoristeykset1',
+                radius: 2.8,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(192,231,193,1.0)',
+            }
+                    break;
+                case '5':
+                    return {
+                pane: 'pane_Rautatientasoristeykset1',
+                radius: 2.8,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(216,240,213,1.0)',
+            }
+                    break;
+                case '1':
+                    return {
+                pane: 'pane_Rautatientasoristeykset1',
+                radius: 2.8,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(240,249,232,1.0)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Rautatientasoristeykset1');
+        map.getPane('pane_Rautatientasoristeykset1').style.zIndex = 401;
+        map.getPane('pane_Rautatientasoristeykset1').style['mix-blend-mode'] = 'normal';
+        var layer_Rautatientasoristeykset1 = new L.geoJson(json_Rautatientasoristeykset1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Rautatientasoristeykset1',
+            onEachFeature: pop_Rautatientasoristeykset1,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Rautatientasoristeykset1_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Rautatientasoristeykset1);
+        map.addLayer(layer_Rautatientasoristeykset1);
+        function pop_Junaonnettomuudet09162(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Selite</th>\
+                        <td>' + (feature.properties['Ontyypsel'] !== null ? Autolinker.link(String(feature.properties['Ontyypsel'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Rautatien selite</th>\
+                        <td>' + (feature.properties['Rautatsel'] !== null ? Autolinker.link(String(feature.properties['Rautatsel'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Kuolleet</th>\
+                        <td>' + (feature.properties['Kuolleet'] !== null ? Autolinker.link(String(feature.properties['Kuolleet'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Loukkaant</th>\
+                        <td>' + (feature.properties['Loukkaant'] !== null ? Autolinker.link(String(feature.properties['Loukkaant'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Vuosi</th>\
+                        <td>' + (feature.properties['Vuosi'] !== null ? Autolinker.link(String(feature.properties['Vuosi'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Vakavuus</th>\
+                        <td>' + (feature.properties['Vakavuus'] !== null ? Autolinker.link(String(feature.properties['Vakavuus'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent);
+        }
+
+        function style_Junaonnettomuudet09162_0(feature) {
+            switch(feature.properties['Vakavuus'].toString()) {
+                case 'Loukkaantumiseen johtanut':
+                    return {
+                pane: 'pane_Junaonnettomuudet09162',
+                shape: 'triangle',
+                radius: 7.6,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,141,60,1.0)',
+            }
+                    break;
+                case 'Kuolemaan johtanut':
+                    return {
+                pane: 'pane_Junaonnettomuudet09162',
+                shape: 'triangle',
+                radius: 7.2,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,1,1,1.0)',
+            }
+                    break;
+                case 'Ei henkilövahinkoja':
+                    return {
+                pane: 'pane_Junaonnettomuudet09162',
+                shape: 'triangle',
+                radius: 7.6,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,178,1.0)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Junaonnettomuudet09162');
+        map.getPane('pane_Junaonnettomuudet09162').style.zIndex = 402;
+        map.getPane('pane_Junaonnettomuudet09162').style['mix-blend-mode'] = 'normal';
+        var layer_Junaonnettomuudet09162 = new L.geoJson(json_Junaonnettomuudet09162, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Junaonnettomuudet09162',
+            onEachFeature: pop_Junaonnettomuudet09162,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.shapeMarker(latlng, style_Junaonnettomuudet09162_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Junaonnettomuudet09162);
+        map.addLayer(layer_Junaonnettomuudet09162);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'Junaonnettomuudet 09-16<br /><table><tr><td style="text-align: center;"><img src="legend/Junaonnettomuudet09162_Loukkaantumiseenjohtanut0.png" /></td><td>Loukkaantumiseen johtanut</td></tr><tr><td style="text-align: center;"><img src="legend/Junaonnettomuudet09162_Kuolemaanjohtanut1.png" /></td><td>Kuolemaan johtanut</td></tr><tr><td style="text-align: center;"><img src="legend/Junaonnettomuudet09162_Eihenkilvahinkoja2.png" /></td><td>Ei henkilövahinkoja</td></tr></table>': layer_Junaonnettomuudet09162,'Rautatien tasoristeykset<br /><table><tr><td style="text-align: center;"><img src="legend/Rautatientasoristeykset1_20.png" /></td><td>2</td></tr><tr><td style="text-align: center;"><img src="legend/Rautatientasoristeykset1_31.png" /></td><td>3</td></tr><tr><td style="text-align: center;"><img src="legend/Rautatientasoristeykset1_42.png" /></td><td>4</td></tr><tr><td style="text-align: center;"><img src="legend/Rautatientasoristeykset1_53.png" /></td><td>5</td></tr><tr><td style="text-align: center;"><img src="legend/Rautatientasoristeykset1_14.png" /></td><td>1</td></tr></table>': layer_Rautatientasoristeykset1,'<img src="legend/Rataverkko0.png" /> Rataverkko': layer_Rataverkko0,}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
