@@ -1,0 +1,29 @@
+body {
+	margin: 0 5em; 
+
+	padding: 0;
+
+	padding-top: 2em;
+
+	font-size: 2.5em;
+
+	font-family: "Open Sans", sans-serif;
+
+}
+
+.row {
+	padding-top: 3em; 
+}
+
+.textbox{
+	padding-top: 5em; 
+}
+
+footer {
+	border-top: 1px solid black;
+	padding-bottom: 3em;
+	padding-top: 3em;
+}
+
+
+
