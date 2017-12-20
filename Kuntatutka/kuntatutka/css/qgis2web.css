@@ -1,0 +1,101 @@
+﻿/* Omat tyylit */
+body {
+    margin: 1em;
+    font-family: 'Cabin Condensed', sans-serif;
+}
+
+
+#content {
+    width: 50px;
+    margin: auto;
+}
+
+ul {
+    list-style: none;
+}
+
+span {
+    font-size: 2em;
+}
+
+button {
+	border: none;
+	color: white;
+	font-weight: bold;
+	padding: 3px 10px 3px 10px;
+	margin: 0 10px 10px 0;
+	border-radius: 3px;
+}
+
+a {
+    text-decoration: none; 
+    color: red;
+}
+
+a:hover {
+    color: blue; 
+}
+
+#Elinvoimaisuus {
+   background-color: rgba(49,130,190,1.0);
+}
+
+#Terveys {
+   background-color: rgba(50,155,81,1.0);
+}
+
+#Talous {
+   background-color: rgba(222,41,36,1.0);
+}
+
+#Ilmapiiri {
+   background-color: rgba(230,89,10,1.0);
+}
+
+
+#map-container {
+    max-width: 500px;
+    height: 600px;
+}
+
+
+/* QGIS2Webin generoimia tyylejä */
+#map1 {
+    background-color: white;
+    width: 95%;
+    height: 100%;
+    margin: auto;
+}
+
+th {
+    text-align: left;
+    vertical-align: top;
+}
+.info {
+    padding: 6px 8px;
+    font: 14px/16px Arial, Helvetica, sans-serif;
+    background: white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.info h2 {
+    margin: 0 0 5px;
+    color: #777;
+}
+.leaflet-container {
+    background: #fff;
+    padding-right: 10px;
+}
+.leaflet-popup-content {
+    width:auto !important;
+    padding-right:10px;
+}
+.leaflet-tooltip {
+    background: none;
+    box-shadow: none;
+    border: none;
+}
+.leaflet-tooltip-left:before, .leaflet-tooltip-right:before {
+    border: 0px;
+}

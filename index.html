@@ -15,6 +15,16 @@
 <body>
   <div class="linkit">
    <div class="item"> 
+    <h3><a href="/Kuntatutka/kuntatutka/index.html" class="a-big"> Kuntatutka-kartta> </a> </h3>
+    <p> Kartta luotu QGIS-ohjelmistolla käyttäen qgis2web-pluginia. Materiaalina <a href="https://yle.fi/uutiset/3-9490180"> Ylen kuntatutka-aineisto</a>. Päätin visualisoida dataa interaktiivisen kartan muodossa koska kartasta saa yhdellä vilkaisulla nopean yleiskuvan koko Suomen tilanteesta, toisin kuin Ylen kuntatutkakoneesta, jossa täytyy aluksi määrittää mitä kuntaa haluaa tutkia. Toisekseen, karttadatan käsittely QGIS-ohjelmalla ja web-karttojen luominen on hauskaa ja minulle suhteellisen uusi aluevaltaus. Aineisto oli myöskin karttavisualisoinnin kannalta oikein mehukas. Käytin lähtökohtana <a href="https://github.com/teelmo/geodata/tree/master/geojson">Kuntarajat 2017 geojson-tiedostoa </a> yhdistämällä tähän tutkittavana olevan kuntadatan käyttäen QGIS-ohjelman 'Yhdistä ominaisuustiedot sijainnin perusteella' -työkalua. Ongelmat joita kohtasin, liittyivät pääasiassa käytettyyn dataan:
+    </p>
+    <ul> 
+     <li> Id-numerot puuttuivat suurelta osalta kunnista, mutta en tarvinnut kyseisiä numeroita lopulta mihinkään, joten tämä ei ollut lopulta ongelma ollenkaan </li>
+     <li> Datassa jokaiselle kunnalle on annettu koordinaatit, jotka sijoittuvat pisteinä kartalle. Omaa visualisointia tehdessäni minulle ei ollut niin väliksi, missä kohtaa tämä kyseinen koordinaattipiste on, kunhan se on kyseessä olevan kunnan rajojen sisällä. Lestijärven koordinaateissa oli vikaa, jonka seurauksena Lestijärvi lensi ns. hornan kuuseen. Huomasin tämän sijoittaessani dataa kartalle QGIS-ohjelman avulla. Google Maps auttoi asiassa ja korjasin dataa käsin antamalla Lestijärvelle oikean suuntaiset koordinaatit.  </li>
+     <li> Edelliseen liittyen, muutama kuntapiste "tipahti mereen", jolloin ne jäivät ulos kyseisen kunnan rajojen sisältä. Näitä tapauksia oli vain pari, joten korjasin näiden koordinaatteja myös käsin. </li>
+    </ul> 
+   </div>
+   <div class="item"> 
     <h3><a href="/Hirvionnettomuudet/index.html" class="a-big"> Hirvionnettomuudet-kartta> </a> </h3> 
     <p> Kartta luotu QGIS-ohjelmistolla käyttäen qgis2web-pluginia. Materiaalina <a href="https://www.avoindata.fi/data/fi/dataset/tieliikenneonnettomuudet"> liikenneviraston avoin onnettomuusdata</a>, josta rajattu
         tarkasteltavaksi pelkästään hirvionnettomuudet.

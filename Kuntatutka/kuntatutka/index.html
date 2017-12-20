@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link href="https://fonts.googleapis.com/css?family=Cabin+Condensed" rel="stylesheet"> 
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <style>
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="text-content" style="max-width: 500px"> 
+            <h1> Kuntatutka </h1>
+            <p> Alla olevissa kartoissa ovat esitettynä Suomen kunnat seuraavilla mittareilla mitattuna: </p>
+            <ul> 
+                <li> <span style="color: rgba(49,130,190,1.0)"> &#9632; </span> Elinvoimaisuus </li>
+                <li> <span style="color: rgba(50,155,81,1.0)"> &#9632; </span> Terveys </li>
+                <li> <span style="color: rgba(222,41,36,1.0)"> &#9632; </span> Talous </li>
+                <li> <span style="color: rgba(230,89,10,1.0)"> &#9632; </span> Ilmapiiri</li>
+            </ul>
+            <p> Mittarit mittaavat kunnan menestystä kyseisellä osa-alueella asteikolla 1-5. Mitä tummempi väri, sitä korkeamman pistemäärän kunta on saanut. Kuntatutkan tarkoitus on mitata mahdollisimman monipuolisesti, miten kunnilla menee. Mukana ovat kaikki manner-Suomen kunnat. Kartta perustuu Ylen keräämään kuntatutka-aineistoon. Ylen Kuntatutkan löydät <a href="https://yle.fi/uutiset/3-9490180">täältä.</a> </p>
+            <p>Valitse alta minkä tason haluat nähdä. Klikkaamalla kuntaa
+            näet yksityiskohtaisempia tietoja. </p> 
+            <button id="Elinvoimaisuus" type="button" onclick="setLayer('pane_Elinvoimaisuus_0')">Elinvoimaisuus</button>
+            <button id="Terveys" type="button" onclick="setLayer('pane_Terveys_1')">Terveys</button>
+            <button id="Talous" type="button" onclick="setLayer('pane_Talous_2')">Talous</button>
+            <button id="Ilmapiiri" type="button" onclick="setLayer('pane_Ilmapiiri_3')">Ilmapiiri</button>
+        </div>
+        <div id="map-container"> 
+            <div id="map1"></div>
+        </div> 
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Elinvoimaisuus_0.js"></script>
+        <script src="data/Terveys_1.js"></script>
+        <script src="data/Talous_2.js"></script>
+        <script src="data/Ilmapiiri_3.js"></script>
+        <script>
+   
+
+        var map = L.map('map1', {
+            zoomControl:true, maxZoom:6, minZoom:5
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+            map.setMaxBounds(map.getBounds());
+        }
+        function pop_Elinvoimaisuus_0(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Kunta</th>\
+                        <td>' + (feature.properties['Name'] !== null ? Autolinker.link(String(feature.properties['Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Väestö</th>\
+                        <td>' + (feature.properties['population'] !== null ? Autolinker.link(String(feature.properties['population'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Elinvoimaisuus</th>\
+                        <td>' + (feature.properties['median_stdevp0'] !== null ? Autolinker.link(String(feature.properties['median_stdevp0'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Talous</th>\
+                        <td>' + (feature.properties['median_stdevp1'] !== null ? Autolinker.link(String(feature.properties['median_stdevp1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Terveys</th>\
+                        <td>' + (feature.properties['median_stdevp2'] !== null ? Autolinker.link(String(feature.properties['median_stdevp2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ilmapiiri</th>\
+                        <td>' + (feature.properties['median_stdevp3'] !== null ? Autolinker.link(String(feature.properties['median_stdevp3'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Elinvoimaisuus_0_0(feature) {
+            if (feature.properties['median_stdevp0'] >= 1.000000 && feature.properties['median_stdevp0'] <= 1.500000 ) {
+                return {
+                pane: 'pane_Elinvoimaisuus_0',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,251,255,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp0'] >= 1.500000 && feature.properties['median_stdevp0'] <= 2.000000 ) {
+                return {
+                pane: 'pane_Elinvoimaisuus_0',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,234,247,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp0'] >= 2.000000 && feature.properties['median_stdevp0'] <= 2.500000 ) {
+                return {
+                pane: 'pane_Elinvoimaisuus_0',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(190,216,237,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp0'] >= 2.500000 && feature.properties['median_stdevp0'] <= 3.000000 ) {
+                return {
+                pane: 'pane_Elinvoimaisuus_0',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(143,194,222,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp0'] >= 3.000000 && feature.properties['median_stdevp0'] <= 3.500000 ) {
+                return {
+                pane: 'pane_Elinvoimaisuus_0',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(91,163,208,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp0'] >= 3.500000 && feature.properties['median_stdevp0'] <= 4.000000 ) {
+                return {
+                pane: 'pane_Elinvoimaisuus_0',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(49,130,190,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp0'] >= 4.000000 && feature.properties['median_stdevp0'] <= 4.500000 ) {
+                return {
+                pane: 'pane_Elinvoimaisuus_0',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(16,92,165,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp0'] >= 4.500000 && feature.properties['median_stdevp0'] <= 5.000000 ) {
+                return {
+                pane: 'pane_Elinvoimaisuus_0',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(10,63,138,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_Elinvoimaisuus_0');
+        map.getPane('pane_Elinvoimaisuus_0').style.zIndex = 430;
+        map.getPane('pane_Elinvoimaisuus_0').style['mix-blend-mode'] = 'normal';
+        var layer_Elinvoimaisuus_0 = new L.geoJson(json_Elinvoimaisuus_0, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Elinvoimaisuus_0',
+            onEachFeature: pop_Elinvoimaisuus_0,
+            style: style_Elinvoimaisuus_0_0,
+        });
+        bounds_group.addLayer(layer_Elinvoimaisuus_0);
+        map.addLayer(layer_Elinvoimaisuus_0);
+        function pop_Terveys_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Kunta</th>\
+                        <td>' + (feature.properties['Name'] !== null ? Autolinker.link(String(feature.properties['Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Väestö</th>\
+                        <td>' + (feature.properties['population'] !== null ? Autolinker.link(String(feature.properties['population'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Elinvoimaisuus</th>\
+                        <td>' + (feature.properties['median_stdevp0'] !== null ? Autolinker.link(String(feature.properties['median_stdevp0'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Talous</th>\
+                        <td>' + (feature.properties['median_stdevp1'] !== null ? Autolinker.link(String(feature.properties['median_stdevp1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Terveys</th>\
+                        <td>' + (feature.properties['median_stdevp2'] !== null ? Autolinker.link(String(feature.properties['median_stdevp2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ilmapiiri</th>\
+                        <td>' + (feature.properties['median_stdevp3'] !== null ? Autolinker.link(String(feature.properties['median_stdevp3'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Terveys_1_0(feature) {
+            if (feature.properties['median_stdevp2'] >= 1.000000 && feature.properties['median_stdevp2'] <= 1.500000 ) {
+                return {
+                pane: 'pane_Terveys_1',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,252,245,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp2'] >= 1.500000 && feature.properties['median_stdevp2'] <= 2.000000 ) {
+                return {
+                pane: 'pane_Terveys_1',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(226,244,221,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp2'] >= 2.000000 && feature.properties['median_stdevp2'] <= 2.500000 ) {
+                return {
+                pane: 'pane_Terveys_1',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(192,230,185,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp2'] >= 2.500000 && feature.properties['median_stdevp2'] <= 3.000000 ) {
+                return {
+                pane: 'pane_Terveys_1',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(148,211,144,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp2'] >= 3.000000 && feature.properties['median_stdevp2'] <= 3.500000 ) {
+                return {
+                pane: 'pane_Terveys_1',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(96,186,108,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp2'] >= 3.500000 && feature.properties['median_stdevp2'] <= 4.000000 ) {
+                return {
+                pane: 'pane_Terveys_1',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(50,155,81,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp2'] >= 4.000000 && feature.properties['median_stdevp2'] <= 4.500000 ) {
+                return {
+                pane: 'pane_Terveys_1',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(12,120,53,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp2'] >= 4.500000 && feature.properties['median_stdevp2'] <= 5.000000 ) {
+                return {
+                pane: 'pane_Terveys_1',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,68,27,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_Terveys_1');
+        map.getPane('pane_Terveys_1').style.zIndex = 401;
+        map.getPane('pane_Terveys_1').style['mix-blend-mode'] = 'normal';
+        var layer_Terveys_1 = new L.geoJson(json_Terveys_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Terveys_1',
+            onEachFeature: pop_Terveys_1,
+            style: style_Terveys_1_0,
+        });
+        bounds_group.addLayer(layer_Terveys_1);
+        map.addLayer(layer_Terveys_1);
+        function pop_Talous_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Kunta</th>\
+                        <td>' + (feature.properties['Name'] !== null ? Autolinker.link(String(feature.properties['Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Väestö</th>\
+                        <td>' + (feature.properties['population'] !== null ? Autolinker.link(String(feature.properties['population'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Elinvoimaisuus</th>\
+                        <td>' + (feature.properties['median_stdevp0'] !== null ? Autolinker.link(String(feature.properties['median_stdevp0'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Talous</th>\
+                        <td>' + (feature.properties['median_stdevp1'] !== null ? Autolinker.link(String(feature.properties['median_stdevp1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Terveys</th>\
+                        <td>' + (feature.properties['median_stdevp2'] !== null ? Autolinker.link(String(feature.properties['median_stdevp2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ilmapiiri</th>\
+                        <td>' + (feature.properties['median_stdevp3'] !== null ? Autolinker.link(String(feature.properties['median_stdevp3'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Talous_2_0(feature) {
+            if (feature.properties['median_stdevp1'] >= 1.000000 && feature.properties['median_stdevp1'] <= 1.500000 ) {
+                return {
+                pane: 'pane_Talous_2',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,245,240,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp1'] >= 1.500000 && feature.properties['median_stdevp1'] <= 2.000000 ) {
+                return {
+                pane: 'pane_Talous_2',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,221,205,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp1'] >= 2.000000 && feature.properties['median_stdevp1'] <= 2.500000 ) {
+                return {
+                pane: 'pane_Talous_2',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(252,179,152,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp1'] >= 2.500000 && feature.properties['median_stdevp1'] <= 3.000000 ) {
+                return {
+                pane: 'pane_Talous_2',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(252,134,102,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp1'] >= 3.000000 && feature.properties['median_stdevp1'] <= 3.500000 ) {
+                return {
+                pane: 'pane_Talous_2',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,87,62,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp1'] >= 3.500000 && feature.properties['median_stdevp1'] <= 4.000000 ) {
+                return {
+                pane: 'pane_Talous_2',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(222,41,36,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp1'] >= 4.000000 && feature.properties['median_stdevp1'] <= 4.500000 ) {
+                return {
+                pane: 'pane_Talous_2',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(179,18,23,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp1'] >= 4.500000 && feature.properties['median_stdevp1'] <= 5.000000 ) {
+                return {
+                pane: 'pane_Talous_2',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,0,13,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_Talous_2');
+        map.getPane('pane_Talous_2').style.zIndex = 402;
+        map.getPane('pane_Talous_2').style['mix-blend-mode'] = 'normal';
+        var layer_Talous_2 = new L.geoJson(json_Talous_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Talous_2',
+            onEachFeature: pop_Talous_2,
+            style: style_Talous_2_0,
+        });
+        bounds_group.addLayer(layer_Talous_2);
+        map.addLayer(layer_Talous_2);
+        function pop_Ilmapiiri_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Kunta</th>\
+                        <td>' + (feature.properties['Name'] !== null ? Autolinker.link(String(feature.properties['Name'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Väestö</th>\
+                        <td>' + (feature.properties['population'] !== null ? Autolinker.link(String(feature.properties['population'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Elinvoimaisuus</th>\
+                        <td>' + (feature.properties['median_stdevp0'] !== null ? Autolinker.link(String(feature.properties['median_stdevp0'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Talous</th>\
+                        <td>' + (feature.properties['median_stdevp1'] !== null ? Autolinker.link(String(feature.properties['median_stdevp1'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Terveys</th>\
+                        <td>' + (feature.properties['median_stdevp2'] !== null ? Autolinker.link(String(feature.properties['median_stdevp2'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Ilmapiiri</th>\
+                        <td>' + (feature.properties['median_stdevp3'] !== null ? Autolinker.link(String(feature.properties['median_stdevp3'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Ilmapiiri_3_0(feature) {
+            if (feature.properties['median_stdevp3'] >= 1.000000 && feature.properties['median_stdevp3'] <= 1.500000 ) {
+                return {
+                pane: 'pane_Ilmapiiri_3',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,245,235,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp3'] >= 1.500000 && feature.properties['median_stdevp3'] <= 2.000000 ) {
+                return {
+                pane: 'pane_Ilmapiiri_3',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,228,202,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp3'] >= 2.000000 && feature.properties['median_stdevp3'] <= 2.500000 ) {
+                return {
+                pane: 'pane_Ilmapiiri_3',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,202,151,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp3'] >= 2.500000 && feature.properties['median_stdevp3'] <= 3.000000 ) {
+                return {
+                pane: 'pane_Ilmapiiri_3',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(253,164,93,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp3'] >= 3.000000 && feature.properties['median_stdevp3'] <= 3.500000 ) {
+                return {
+                pane: 'pane_Ilmapiiri_3',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(249,127,43,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp3'] >= 3.500000 && feature.properties['median_stdevp3'] <= 4.000000 ) {
+                return {
+                pane: 'pane_Ilmapiiri_3',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(230,89,10,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp3'] >= 4.000000 && feature.properties['median_stdevp3'] <= 4.500000 ) {
+                return {
+                pane: 'pane_Ilmapiiri_3',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(184,60,2,1.0)',
+            }
+            }
+            if (feature.properties['median_stdevp3'] >= 4.500000 && feature.properties['median_stdevp3'] <= 5.000000 ) {
+                return {
+                pane: 'pane_Ilmapiiri_3',
+                opacity: 1,
+                color: 'rgba(164,164,164,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(127,39,4,1.0)',
+            }
+            }
+        }
+        map.createPane('pane_Ilmapiiri_3');
+        map.getPane('pane_Ilmapiiri_3').style.zIndex = 403;
+        map.getPane('pane_Ilmapiiri_3').style['mix-blend-mode'] = 'normal';
+        var layer_Ilmapiiri_3 = new L.geoJson(json_Ilmapiiri_3, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_Ilmapiiri_3',
+            onEachFeature: pop_Ilmapiiri_3,
+            style: style_Ilmapiiri_3_0,
+        });
+        bounds_group.addLayer(layer_Ilmapiiri_3);
+        map.addLayer(layer_Ilmapiiri_3);
+        var baseMaps = {};
+        map.scrollWheelZoom.disable();
+        //L.control.layers(baseMaps,{'Ilmapiiri<br />': layer_Ilmapiiri_3,'Talous<br />': layer_Talous_2,'Terveys<br />': layer_Terveys_1,'Elinvoimaisuus<br />': layer_Elinvoimaisuus_0,}).addTo(map);
+
+        var zInd = 450
+        function setLayer(layer) {
+            zInd++;
+            map.getPane(layer).style.zIndex = zInd;
+        }
+
+
+        setBounds();
+        </script>
+    </body>
+</html>
