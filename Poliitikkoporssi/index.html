@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<!--[if lt IE 9]>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div id="Puoluekannatus2017_wrapper" style="min-width: 300px; max-width: 600px; height: 700px;"> 
+		<div id="container" style="width: 100%; height: 100%;">
+		</div>
+	</div>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script type="text/javascript">
+	Highcharts.chart('container', {
+    chart: {
+        type: 'bar',
+        style: {
+        	fontFamily: 'Lucida Grande'
+        }
+    },
+    colors: ['rgb(14,123,164)', 'rgb(183,231,249)'],
+    title: {
+        text: 'Kysymys: Seuraavassa esitämme joukon suomalaisia poliitikkoja. Kenelle heistä antaisit nykyistä enemmän poliittista päätösvaltaa?',
+        align: 'left'
+    },
+    subtitle: {
+    	text: 'Tietoykkönen Oy Iltalehdelle ja Uudelle Suomelle 8.-18. joulukuuta. Vastaajia 1500.',
+    	align: 'left'
+    },
+    xAxis: {
+        categories: [
+        	'Sauli Niinistö',
+        	'Pekka Haavisto',
+        	'Li Andersson',
+            'Sari Essayah',
+            'Jan Vapaavuori',
+            'Petteri Orpo',
+            'Juha Sipilä',
+            'Antti Rinne',
+            'Timo Soini',
+            'Merja Kyllönen',
+            'Paula Risikko',
+            'Matti Vanhanen',
+            'Anna-Maija Henriksson',
+            'Touko Aalto',
+            'Tuula Haatainen',
+            'Antti Lindtman',
+            'Annika Saarikko',
+            'Paavo Väyrynen',
+            'Nils Torvalds',
+            'Sampo Terho',
+            'Jussi Halla-aho',
+            'Laura Huhtasaari',
+            'Ei osaa sanoa/ei vastausta'
+        	]
+    },
+    series: [{
+        name: 'Joulukuu 2017',
+        data: [66,39,26,23,23,22,19,19,17,17,16,16,15,14,14,13,12,12,12,11,10,10,9]
+    }],
+    yAxis: {
+        title: {
+            text: 'Prosenttia vastaajista'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' %'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    legend: {
+        verticalAlign: 'top',
+        align: 'left',
+        floating: false,
+        borderWidth: 0,
+        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+        shadow: false
+    },
+    credits: {
+        enabled: false
+    }
+	});		
+	</script>
+</body>
+</html>

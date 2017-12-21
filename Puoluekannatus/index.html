@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<!--[if lt IE 9]>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+	<![endif]-->
+</head>
+<body>
+	<div id="Puoluekannatus2017_wrapper" style="min-width: 300px; max-width: 600px; height: 700px;"> 
+		<div id="container" style="width: 100%; height: 100%;">
+		</div>
+	</div>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script type="text/javascript">
+	Highcharts.chart('container', {
+    chart: {
+        type: 'bar',
+        style: {
+        	fontFamily: 'Lucida Grande'
+        }
+    },
+    colors: ['rgb(14,123,164)', 'rgb(183,231,249)'],
+    title: {
+        text: 'Eduskuntavaalikannatus, joulukuu 2017',
+        align: 'left'
+    },
+    subtitle: {
+    	text: 'Tietoykkönen Oy Iltalehdelle ja Uudelle Suomelle 8.-18. joulukuuta. 1146 puoluekantansa ilmaissutta äänestysikäistä, suurimman puolueen virhemarginaali +/- 2.4%.',
+    	align: 'left'
+    },
+    xAxis: {
+        categories: [
+        	'Kansallinen Kokoomus',
+        	'Suomen Sosialidemokraattinen Puolue',
+        	'Suomen Keskusta',
+        	'Vihreä Liitto',
+        	'Vasemmistoliitto',
+        	'Perussuomalaiset',
+        	'Suomen ruotsalainen kansanpuolue',
+        	'Suomen Kristillisdemokraatit',
+        	'Sininen tulevaisuus', 
+        	'Muut'
+        	],
+        title: {
+            text: null
+        }
+    },
+    yAxis: {
+        title: {
+            text: 'Prosenttia'
+        },
+        labels: {
+            overflow: 'justify'
+        }
+    },
+    tooltip: {
+        valueSuffix: ' %'
+    },
+    plotOptions: {
+        bar: {
+            dataLabels: {
+                enabled: true
+            }
+        }
+    },
+    legend: {
+        verticalAlign: 'top',
+        align: 'left',
+        floating: false,
+        borderWidth: 0,
+        backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+        shadow: false
+    },
+    credits: {
+        enabled: false
+    },
+    series: [{
+        name: 'Joulukuu 2017',
+        data: [20.8, 20.1, 16.2, 13.7, 9.0, 7.8, 4.8, 4.1, 1.8, 1.7]
+    }, {
+        name: 'Eduskuntavaalitulos 2015',
+        data: [18.2, 16.5, 21.1, 8.5, 7.1, 17.7, 4.9, 3.5, 0, 2.5]
+    }]
+	});		
+	</script>
+</body>
+</html>
