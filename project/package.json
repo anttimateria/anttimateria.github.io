@@ -1,0 +1,76 @@
+{
+  "name": "pnoalueet",
+  "version": "1.0.0",
+  "description": "A Mediadeski project",
+  "private": true,
+  "config": {
+    "mediadeski_project_name": "pnoalueet"
+  },
+  "scripts": {
+    "watch": "ASSET_PATH=\"//localhost:3000/\" webpack-dev-server --mode development --config webpack.dev.js --host 0.0.0.0 --hot --inline",
+    "build": "webpack --mode development",
+    "build:dev": "webpack --mode development --config webpack.prod.js",
+    "build:prod": "webpack --mode production --config webpack.prod.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git"
+  },
+  "browserslist": [
+    "last 2 versions"
+  ],
+  "dependencies": {
+    "axios": "0.19.0",
+    "babel-polyfill": "6.26.0",
+    "d3": "5.9.7",
+    "d3-geo": "1.11.6",
+    "d3-tile": "1.0.0",
+    "object-assign": "4.1.1",
+    "vue": "2.5.22"
+  },
+  "devDependencies": {
+    "@vue/babel-helper-vue-jsx-merge-props": "1.0.0",
+    "@vue/babel-preset-jsx": "1.1.0",
+    "@babel/core": "7.2.2",
+    "@babel/plugin-syntax-dynamic-import": "7.2.0",
+    "@babel/preset-env": "7.2.3",
+    "@babel/preset-react": "7.0.0",
+    "autoprefixer": "9.4.6",
+    "babel-core": "6.26.0",
+    "babel-eslint": "10.0.1",
+    "babel-loader": "8.0.5",
+    "babel-preset-env": "1.6.1",
+    "clean-webpack-plugin": "1.0.1",
+    "copy-webpack-plugin": "4.6.0",
+    "css-loader": "2.1.0",
+    "eslint": "4.19.1",
+    "eslint-config-mediadeski": "git+ssh://git@github.com/Yleisradio/eslint-config-mediadeski.git",
+    "eslint-plugin-import": "2.9.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-react": "7.7.0",
+    "eslint-plugin-styled-components-config": "0.0.2",
+    "file-loader": "3.0.1",
+    "html-loader": "0.5.5",
+    "html-webpack-plugin": "3.2.0",
+    "mediadeski-aws": "git+ssh://git@github.com/Yleisradio/mediadeski-aws.git",
+    "mini-css-extract-plugin": "0.5.0",
+    "node-sass": "4.11.0",
+    "postcss-loader": "3.0.0",
+    "prettier-eslint": "8.8.1",
+    "responsive-loader": "1.2.0",
+    "run-sequence": "2.2.1",
+    "sass-loader": "7.1.0",
+    "sharp": "0.21.3",
+    "terser-webpack-plugin": "1.2.1",
+    "vue-loader": "15.6.0",
+    "vue-style-loader": "4.1.2",
+    "vue-template-compiler": "2.5.22",
+    "webpack": "4.28.4",
+    "webpack-bundle-analyzer": "3.0.3",
+    "webpack-cli": "3.2.1",
+    "webpack-dev-server": "3.1.14",
+    "yargs": "11.0.0"
+  }
+}
