@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/pnoalueet/'
+  publicPath: '/project/'
 };
