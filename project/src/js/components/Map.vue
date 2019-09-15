@@ -12,25 +12,16 @@
 </template>
 
 <script>
-/*
-
-MELKEIN TOIMII!
-
-*/
+// Käytetään d3:n funktioita kartan piirtämiseen
 const d3 = require('d3');
 export default {
   name: 'Map',
   props: ['selection', 'clicked'],
   data: function () {
     return {
-      message: 'hello',
-      proj: null,
       mdPath: () => {},
       data: {},
       geojson: null,
-      w: 900,
-      h: 600,
-      selected: null,
     }
   },
   mounted: function() {
@@ -42,8 +33,6 @@ export default {
        d3.json(cont).then(res => {
          this.geojson = res;
          this.data = res.features;
-         // console.log(typeof JSON.parse(JSON.stringify(this.data[0])));
-         // console.log(this.mdPath(JSON.parse(JSON.stringify(this.data[0]))));
        }).then(() => this.initMap()).catch(error => {});
     },
     initMap() {
@@ -52,7 +41,6 @@ export default {
         .fitSize([800,600]);
       proj.fitSize([800, 600], this.geojson);
       this.mdPath = d3.geoPath().projection(proj);
-      // this.selected = 7;
     },
     setFill: function (feat) {
       if (this.clicked && feat.properties.posti_alue == this.clicked.properties.posti_alue) {
