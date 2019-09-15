@@ -78,7 +78,6 @@
 </template>
 
 <script>
-  import './../scss/styles.css';
   import Map from './components/Map.vue';
   import axios from 'axios';
 
