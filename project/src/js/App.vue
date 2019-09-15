@@ -156,9 +156,9 @@ export default {
         case null:
           return true;
         case this.asumisvaljyydet[0]:
-          return val > 37.1;
+          return val <= 37.1;
         case this.asumisvaljyydet[1]:
-          return val <= 37.1; 
+          return val > 37.1; 
       }
     },
     asuntoBtnClick (el) {
